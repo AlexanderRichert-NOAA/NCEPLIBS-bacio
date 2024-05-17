@@ -22,22 +22,16 @@ jobs:
     steps:
 
     - name: checkout
-      uses: actions/checkout@v2
-      with: 
-        path: bacio
+      uses: actions/checkout@v4
 
     - name: build
       run: |
-        cd bacio
-        mkdir build 
-        cd build
-        cmake .. 
-        make -j2 VERBOSE=1
+        cmake -B build
+        cmake --build build --parallel 2 --verbose
 
     - name: test
       run: |
         set -e
-        cd $GITHUB_WORKSPACE/bacio/build
-        ctest --output-on-failure --rerun-failed --verbose
+        ctest --test-dir build --output-on-failure --rerun-failed --verbose
 
         
