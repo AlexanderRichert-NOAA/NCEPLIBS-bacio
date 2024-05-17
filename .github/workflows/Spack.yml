@@ -21,33 +21,20 @@ jobs:
     strategy:
       matrix:
         os: ["ubuntu-latest"]
-        sharedlibs: ["+shared", "~shared"]
-        pic: ["+pic", "~pic"]
+        variants: ["+shared+pic", "~shared~pic"]
     runs-on: ${{ matrix.os }}
 
     steps:
     
-    - name: checkout-bacio
-      uses: actions/checkout@v4
-      with: 
-        path: bacio
-
-    - name: spack-build-and-test
-      run: |
-        git clone -c feature.manyFiles=true https://github.com/spack/spack
-        . spack/share/spack/setup-env.sh
-        spack env create bacio-env
-        spack env activate bacio-env
-        cp $GITHUB_WORKSPACE/bacio/spack/package.py $SPACK_ROOT/var/spack/repos/builtin/packages/bacio/package.py
-        mv $GITHUB_WORKSPACE/bacio $SPACK_ENV/bacio
-        spack develop --no-clone bacio@develop
-        spack add bacio@develop%gcc@11 ${{ matrix.sharedlibs }} ${{ matrix.pic }}
-        spack external find cmake gmake
-        spack concretize
-        # Run installation and run CTest suite
-        spack install --verbose --fail-fast --test root
-        # Run 'spack load' to check for obvious errors in setup_run_environment
-        spack load bacio
+    - name: "Build Spack package"
+      uses: NOAA-EMC/ci-test-spack-package@develop
+      with:
+        package-name: bacio
+        package-variants: ${{ matrix.variants }}
+        custom-recipe: spack/package.py
+        use-repo-cache: true
+        spack-compiler: gcc
+        repo-cache-key-suffix: ${{ matrix.os }}-${{ matrix.variants }}-1
 
   # This job validates the Spack recipe by making sure each cmake build option is represented
   recipe-check:
@@ -55,15 +42,9 @@ jobs:
 
     steps:
     
-    - name: checkout-bacio
-      uses: actions/checkout@v4
-      with: 
-        path: bacio
-
     - name: recipe-check
-      run: |
-        echo "If this jobs fails, look at the most recently output CMake option below and make sure that option appears in spack/package.py"
-        for opt in $(grep -ioP '^option\(\K(?!(ENABLE_DOCS))[^ ]+' $GITHUB_WORKSPACE/bacio/CMakeLists.txt) ; do
-          echo "Checking for presence of '$opt' CMake option in package.py"
-          grep -cP "define.+\b${opt}\b" $GITHUB_WORKSPACE/bacio/spack/package.py
-        done
+      uses: NOAA-EMC/ci-check-spack-recipe@develop
+      with:
+        recipe-file: package/spack/package.py
+        cmakelists-txt: package/CMakeLists.txt
+        ignore-list: ENABLE_DOCS
