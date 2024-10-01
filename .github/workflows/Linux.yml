@@ -21,6 +21,12 @@ jobs:
 
     steps:
 
+    - name: get-gcc
+      run: |
+        if [ -z $(type -P gcc-${{ matrix.gcc-version }}) ]; then
+          sudo apt install gcc-${{ gcc-version }}
+        fi
+
     - name: checkout
       uses: actions/checkout@v4
 
