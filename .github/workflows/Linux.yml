@@ -24,7 +24,7 @@ jobs:
     - name: get-gcc
       run: |
         if [ -z $(type -P gcc-${{ matrix.gcc-version }}) ]; then
-          sudo apt install gcc-${{ gcc-version }}
+          sudo apt install gcc-${{ matrix.gcc-version }}
         fi
 
     - name: checkout
