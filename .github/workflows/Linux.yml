@@ -17,14 +17,14 @@ jobs:
     runs-on: ubuntu-24.04
     strategy:
       matrix:
-        gcc-version: [11,14]
+        gcc-version: [12,14]
 
     steps:
 
     - name: get-gcc
       run: |
         if [ -z $(type -P gcc-${{ matrix.gcc-version }}) ]; then
-          sudo apt install gcc-${{ matrix.gcc-version }} gfortran=${{ matrix.gcc-version }}
+          sudo apt install gcc-${{ matrix.gcc-version }}
         fi
 
     - name: checkout
