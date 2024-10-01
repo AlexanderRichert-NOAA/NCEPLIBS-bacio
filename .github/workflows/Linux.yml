@@ -15,9 +15,9 @@ on:
 jobs:
   Linux:
     runs-on: ubuntu-latest
-    env:
-      FC: gfortran-11
-      CC: gcc-11
+    strategy:
+      matrix:
+        gcc-version: [12,14]
 
     steps:
 
@@ -26,6 +26,7 @@ jobs:
 
     - name: build
       run: |
+        export CC=gcc-${{ matrix.gcc-version }} ; export FC=gfortran-${{ matrix.gcc-version }}
         cmake -B build
         cmake --build build --parallel 2 --verbose
 
@@ -33,5 +34,3 @@ jobs:
       run: |
         set -e
         ctest --test-dir build --output-on-failure --rerun-failed --verbose
-
-        
