@@ -5,7 +5,7 @@ on:
   pull_request:
     branches: [develop,dummy_ai_test]
   pull_request_target:
-    branches-ignore: develop
+    branches: '*'
 
 jobs:
   ai-code-review:
