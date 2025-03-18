@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     branches: '*'
   pull_request:
-    branches: [develop,dummy_ai_test]
+    branches: [develop]
   pull_request_target:
     branches: '*'
 
