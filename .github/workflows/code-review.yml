@@ -19,3 +19,4 @@ jobs:
         backend: gh-phi-4
         api-key-variable: GH_API_KEY
         reference-org: AlexanderRichert-NOAA
+        reference-branch: dummy_ai_test
