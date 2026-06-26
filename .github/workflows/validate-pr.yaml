@@ -8,7 +8,7 @@ jobs:
   Checks:
     permissions:
       pull-requests: read
-    uses: AlexanderRichert-NOAA/ci-validate-pr/.github/workflows/validate-pr.yaml@1a00245740a1156daf9913062de4b2c9b57f41fe
+    uses: AlexanderRichert-NOAA/ci-validate-pr/.github/workflows/validate-pr.yaml@638d8a528347ea9f90d0cec838d465169470591d
     with:
       validate-genai-disclosure: true
       approvals-for-external-contributors: 1
