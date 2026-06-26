@@ -13,3 +13,5 @@ jobs:
     uses: AlexanderRichert-NOAA/ci-validate-pr/.github/workflows/validate-pr.yaml@b1e4839771ce580d4c76961fdbd639005c2d87b8
     with:
       validate-genai-disclosure: true
+      approvals-for-critical-changes: 2
+      critical-file-count: 1
