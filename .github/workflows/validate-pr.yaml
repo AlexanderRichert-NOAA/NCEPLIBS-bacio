@@ -10,6 +10,6 @@ jobs:
   Checks:
     permissions:
       pull-requests: read
-    uses: AlexanderRichert-NOAA/ci-validate-pr/.github/workflows/validate-pr.yaml@d08192f8b6a0a226811366133bde23ee3a0b8e56
+    uses: AlexanderRichert-NOAA/ci-validate-pr/.github/workflows/validate-pr.yaml@b36389098555d1afce32023969b272b88a789b47
     with:
       validate-genai-disclosure: true
