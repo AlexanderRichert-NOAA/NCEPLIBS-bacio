@@ -8,7 +8,7 @@ on:
 
 jobs:
   validate:
-    uses: NOAA-EMC/ci-validate-pr/.github/workflows/validate-pr.yaml@0afc4eba3aa7ba7ea1ded6f97388f99ca57f7355
+    uses: AlexanderRichert-NOAA/ci-validate-pr/.github/workflows/validate-pr.yaml@0afc4eba3aa7ba7ea1ded6f97388f99ca57f7355
     with:
       validate-genai-disclosure: true
       approvals-for-external-contributors: 2
