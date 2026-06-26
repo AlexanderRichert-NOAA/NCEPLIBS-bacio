@@ -14,4 +14,6 @@ jobs:
     with:
       validate-genai-disclosure: true
       approvals-for-critical-changes: 2
-      critical-file-count: 1
+      critical-files: |
+        CMakeLists.txt
+        otherthing
